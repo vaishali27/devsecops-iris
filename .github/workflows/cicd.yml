@@ -1,12 +1,15 @@
 name: ci-cd
 
-# run the action on pull_requests and pushes
+# run the action on pushes
 on: push
 
 jobs:
   # first job to test the application using pytest
   unittest:
-    runs-on: ubuntu-latest # choose the OS for running the action
+    runs-on: ${{ matrix.os }} # choose the OS for running the action
+    strategy:
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest']
     # define the individual sequential steps to be run
     steps:
       - name: Checkout the repository
